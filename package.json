@@ -1,0 +1,13 @@
+{
+  "name": "myExpress",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:SmallPotatoZc/myExpress.git",
+  "author": "zhangChao <1148563917@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "server": "^1.0.0-beta.1"
+  }
+}
