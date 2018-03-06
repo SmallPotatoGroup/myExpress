@@ -55,6 +55,7 @@ if (!args.help) {
   console.log('将当前路径 %s/%s 进行挂载，可访问 localhost:%s%s', _path, args.file, args.port, _sPath);
 } else {
   console.log(params.help());
+  process.exit()
 }
 
 app.listen(Number(args.port));
