@@ -2,6 +2,28 @@ var express = require('express');
 var fs = require('fs');
 var path = require('path');
 var process = require('process');
+var os = require('os');
+
+var ifaces = os.networkInterfaces();
+var ip = '';
+Object.keys(ifaces).forEach(function (ifname) {
+  var alias = 0;
+
+  ifaces[ifname].forEach(function (iface) {
+    if ('IPv4' !== iface.family || iface.internal !== false) {
+      return;
+    }
+
+    if (alias >= 1) {
+      ip = iface.address;
+      // console.log(ifname + ':' + alias, iface.address);
+    } else {
+      ip = iface.address;
+      // console.log('本机 ip 地址为', ifname, iface.address);
+    }
+    ++alias;
+  });
+});
 
 // 程序的当前路径
 var _curpath = process.cwd();
@@ -52,7 +74,9 @@ if (!args.help) {
   } else {
     app.use(_sPath, express.static(_path));
   }
-  console.log('将当前路径 %s/%s 进行挂载，可访问 localhost:%s%s', _path, args.file, args.port, _sPath);
+  console.log('将当前路径 %s/%s 进行挂载', _path, args.file);
+  console.log('可访问 localhost:%s%s', args.port, _sPath);
+  console.log('或者可访问 %s:%s%s', ip, args.port, _sPath);
 } else {
   console.log(params.help());
   process.exit()
